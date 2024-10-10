@@ -17,6 +17,7 @@ package com.mohamedrejeb.compose.dnd.drag
 
 import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.SpringSpec
+import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -25,6 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onPlaced
 import androidx.compose.ui.layout.onSizeChanged
@@ -56,6 +58,7 @@ internal fun <T> CoreDraggableItem(
     data: T,
     state: DragAndDropState<T>,
     enabled: Boolean = true,
+    nested: Boolean = false,
     dragAfterLongPress: Boolean = state.dragAfterLongPress,
     dropTargets: List<Any> = emptyList(),
     dropStrategy: DropStrategy = DropStrategy.SurfacePercentage,
@@ -119,12 +122,16 @@ internal fun <T> CoreDraggableItem(
                 draggableItemState.size = it.toSize()
             }
             .pointerInput(key, enabled, state, state.enabled, dragAfterLongPress) {
-                detectDragStartGesture(
-                    key = key,
-                    state = state,
-                    enabled = enabled && state.enabled,
-                    dragAfterLongPress = dragAfterLongPress,
-                )
+                if (nested) {
+                    TODO("Not yet implemented")
+                } else {
+                    detectDragStartGesture(
+                        key = key,
+                        state = state,
+                        enabled = enabled && state.enabled,
+                        dragAfterLongPress = dragAfterLongPress,
+                    )
+                }
             },
     ) {
         content()

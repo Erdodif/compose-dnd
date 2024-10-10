@@ -84,6 +84,13 @@ private fun HomeScreenContent() {
                     navigator.push(ListToListWithReorderScreen)
                 }
             )
+
+            HomeListItem(
+                text = "Item within an item (nested drag)",
+                onClick = {
+                    navigator.push(NestedItemScreen)
+                }
+            )
         }
     }
 }
